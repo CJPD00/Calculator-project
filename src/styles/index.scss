@@ -12,53 +12,56 @@ body {
     color: white;
     text-align: right;
     letter-spacing: 1px;
+    max-height: 50px;
 }
 
-    * {
-        font-size: 1.2rem;
-    }
+* {
+    font-size: 1.2rem;
+}
 
-    .calculator {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin: 0 auto;
-        text-align: center;
-        max-width: 300px;
-        min-width: 256px;
-        border: 10px solid #101116;
-        background-color: #101116;
-        border-radius: 5px;
-    }
+.calculator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    text-align: center;
+    max-width: 300px;
+    min-width: 256px;
+    border: 10px solid #101116;
+    background-color: #101116;
+    border-radius: 5px;
+}
 
-    #display {
-        text-align: right;
-        color: rgb(206, 142, 24);
-    }
+#display {
+    text-align: right;
+    color: rgb(206, 142, 24);
+    min-height: 30px;
+    font-size: 14px;
+}
 
-    .keypad {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-auto-rows: minmax(60px, auto); 
-    }
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(60px, auto);
+}
 
-    #clear{
-        grid-column: 1/3;
-        background-color: rgb(160, 34, 34);
-    }
+#clear {
+    grid-column: 1/3;
+    background-color: rgb(160, 34, 34);
+}
 
-    #equals{
-        grid-column: 3/5;
-        background-color: rgb(26, 26, 129);
-    }
+#equals {
+    grid-column: 3/5;
+    background-color: rgb(26, 26, 129);
+}
 
-    button{
-        cursor: pointer;
-        background-color: #2a2d3d;
-        color: rgb(204, 201, 201);
-    }
+button {
+    cursor: pointer;
+    background-color: #2a2d3d;
+    color: rgb(204, 201, 201);
+}
 
-    .operation{
-        background-color:#4b506d ;
-    }
+.operation {
+    background-color: #4b506d;
+}

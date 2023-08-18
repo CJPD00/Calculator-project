@@ -12,6 +12,7 @@ body {
   color: white;
   text-align: right;
   letter-spacing: 1px;
+  max-height: 50px;
 }
 
 * {
@@ -35,6 +36,8 @@ body {
 #display {
   text-align: right;
   color: rgb(206, 142, 24);
+  min-height: 30px;
+  font-size: 14px;
 }
 
 .keypad {

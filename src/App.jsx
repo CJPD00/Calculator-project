@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { RP } from './helpers/Regex'
 
 
 function App() {
@@ -9,22 +10,71 @@ function App() {
 
   useEffect(() => {
 
-    if (input.length > 19) {
-      setconcat(false)
-    } else setconcat(true)
+    if (input === '') setinput('0')
+
+    if (input === '0' && results !== '') setinput(results)
 
   }, [input])
 
   const handleClick = ({ target }) => {
 
-    if (input === '0') {
-      setinput(target.name)
-      setresults(target.name)
-    } else {
-      if (concat) { setresults(results.concat(target.name)); setinput(input.concat(target.name)) }
-    }
+    switch (target.name) {
 
-    //if(target.name==='Clear')
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        if (input === '0' && results === "") {
+          setinput(target.name)
+          setresults(target.name)
+        } else {
+          if (concat) { setresults(results.concat(target.name)); setinput(input.concat(target.name)) }
+        }
+        if (input === '/' || input === 'X' || input === '-' || input === '+') setinput(target.name)
+        break
+      case '.':
+        if (input === '0' && results === '') { setinput('0.'); setresults('0.'); break }
+
+        if (input[input.length - 1] === '/' || input[input.length - 1] === '+' || input[input.length - 1] === 'X' || input[input.length - 1] === '-') { setresults(results.concat('0.')); setinput('0.'); break }
+
+        if (RP.test(input)) break; else { if (concat) { setresults(results.concat(target.name)); setinput(input.concat(target.name)) } }
+        break
+
+      case 'Clear':
+        setresults('')
+        setinput('0')
+        break
+
+      case '/':
+        if (results[results.length - 1] === '/' || results[results.length - 1] === '.' || results[results.length - 1] === '+' || results[results.length - 1] === '*' || results[results.length - 1] === '-') { setresults(results.slice(0, results.length - 1).concat('/')); setinput('/'); break }
+        if (input === '0' && results === '') break; else {
+          setinput('/'); setresults(results.concat(target.name))
+        }
+        break
+
+      case 'X':
+        if (results[results.length - 1] === '/' || results[results.length - 1] === '.' || results[results.length - 1] === '+' || results[results.length - 1] === '*' || results[results.length - 1] === '-') { setresults(results.slice(0, results.length - 1).concat('*')); setinput('X'); break }
+        if (input === '0' && results === '') break; else {
+          setinput('X'); setresults(results.concat('*'))
+        }
+        break
+
+      case '+':
+        if (results[results.length - 1] === '/' || results[results.length - 1] === '.' || results[results.length - 1] === '+' || results[results.length - 1] === '*' || results[results.length - 1] === '-') { setresults(results.slice(0, results.length - 1).concat('+')); setinput('+'); break }
+        if (input === '0' && results === '') break; else {
+          setinput('+'); setresults(results.concat(target.name))
+        }
+        break
+
+      case '-':
+        if()
+    }
 
   }
 
@@ -38,7 +88,6 @@ function App() {
 
         <div className='keypad'>
           <button id="clear" onClick={handleClick} name='Clear'>Clear</button>
-          <button className='operation' onClick={handleClick} name='C'>C</button>
           <button id="divide" className='operation' onClick={handleClick} name='/'>&divide;</button>
           <button id='seven' onClick={handleClick} name='7'>7</button>
           <button id="eight" onClick={handleClick} name='8'>8</button>
@@ -49,7 +98,7 @@ function App() {
           <button id='six' onClick={handleClick} name='6'>6</button>
           <button id="subtract" className='operation' onClick={handleClick} name='-'>&ndash;</button>
           <button id='one' onClick={handleClick} name='1'>1</button>
-          <button id='two' name='Clear'>2</button>
+          <button id='two' name='2' onClick={handleClick}>2</button>
           <button id='three' onClick={handleClick} name='3'>3</button>
           <button id="add" className='operation' onClick={handleClick} name='+'>+</button>
           <button id='zero' onClick={handleClick} name='0'>0</button>

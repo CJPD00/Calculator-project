@@ -28,19 +28,19 @@ function App() {
       case '7':
       case '8':
       case '9':
-        
-      if(igual) break
 
-        if(results[results.length-1]==='0'&&results[results.length-2]==='-'||
-        results[results.length-1]==='0'&&results[results.length-2]==='+'||
-        results[results.length-1]==='0'&&results[results.length-2]==='*'||
-        results[results.length-1]==='0'&&results[results.length-2]==='/'){
+        if (igual) break
 
-          setresults(results.slice(0,results.length-1).concat(target.name))
-          setinput(input.slice(0,input.length-1).concat(target.name))
+        if (results[results.length - 1] === '0' && results[results.length - 2] === '-' ||
+          results[results.length - 1] === '0' && results[results.length - 2] === '+' ||
+          results[results.length - 1] === '0' && results[results.length - 2] === '*' ||
+          results[results.length - 1] === '0' && results[results.length - 2] === '/') {
+
+          setresults(results.slice(0, results.length - 1).concat(target.name))
+          setinput(input.slice(0, input.length - 1).concat(target.name))
           break
         }
-        
+
         if (input === '0' && results === "" || input === '0') {
           setinput(target.name)
           setresults(target.name)
@@ -66,8 +66,8 @@ function App() {
 
       case '/':
 
-      setigual(false)
-        
+        setigual(false)
+
         if (results[results.length - 1] === '-'
           && results[results.length - 2] === '-'
           || results[results.length - 1] === '-'
@@ -85,8 +85,8 @@ function App() {
 
       case 'X':
 
-      setigual(false)
-      
+        setigual(false)
+
         if (results[results.length - 1] === '-'
           && results[results.length - 2] === '-'
           || results[results.length - 1] === '-'
@@ -104,8 +104,8 @@ function App() {
 
       case '+':
 
-      setigual(false)
-        
+        setigual(false)
+
         if (results[results.length - 1] === '-'
           && results[results.length - 2] === '-'
           || results[results.length - 1] === '-'
@@ -123,8 +123,8 @@ function App() {
 
       case '-':
 
-      setigual(false)
-       
+        setigual(false)
+
         if (results === '-') break
         if (results[results.length - 1] === '-'
           && results[results.length - 2] === '-'
@@ -135,13 +135,15 @@ function App() {
           || results[results.length - 1] === '-'
           && results[results.length - 2] === '/') break
 
+        if (input === '0' && results === '') break
+
         setinput('-')
         setresults(results.concat(target.name))
         break
 
       case '=':
 
-      setigual(true)
+        setigual(true)
 
         if (results[results.length - 1] === '-'
           && results[results.length - 2] === '-'

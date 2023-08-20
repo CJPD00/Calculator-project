@@ -6,13 +6,11 @@ function App() {
 
   const [results, setresults] = useState('')
   const [input, setinput] = useState('0')
-  const [concat, setconcat] = useState(true)
+  const [igual, setigual] = useState(false)
 
   useEffect(() => {
 
     if (input === '') setinput('0')
-
-    if (input === '0' && results !== '') setinput(results)
 
   }, [input])
 
@@ -30,50 +28,142 @@ function App() {
       case '7':
       case '8':
       case '9':
-        if (input === '0' && results === "") {
+        
+      if(igual) break
+
+        if(results[results.length-1]==='0'&&results[results.length-2]==='-'||
+        results[results.length-1]==='0'&&results[results.length-2]==='+'||
+        results[results.length-1]==='0'&&results[results.length-2]==='*'||
+        results[results.length-1]==='0'&&results[results.length-2]==='/'){
+
+          setresults(results.slice(0,results.length-1).concat(target.name))
+          setinput(input.slice(0,input.length-1).concat(target.name))
+          break
+        }
+        
+        if (input === '0' && results === "" || input === '0') {
           setinput(target.name)
           setresults(target.name)
         } else {
-          if (concat) { setresults(results.concat(target.name)); setinput(input.concat(target.name)) }
+          setresults(results.concat(target.name)); setinput(input.concat(target.name))
         }
         if (input === '/' || input === 'X' || input === '-' || input === '+') setinput(target.name)
         break
       case '.':
+        if (igual) break
         if (input === '0' && results === '') { setinput('0.'); setresults('0.'); break }
 
         if (input[input.length - 1] === '/' || input[input.length - 1] === '+' || input[input.length - 1] === 'X' || input[input.length - 1] === '-') { setresults(results.concat('0.')); setinput('0.'); break }
 
-        if (RP.test(input)) break; else { if (concat) { setresults(results.concat(target.name)); setinput(input.concat(target.name)) } }
+        if (RP.test(input)) break; else { setresults(results.concat(target.name)); setinput(input.concat(target.name)) }
         break
 
       case 'Clear':
+        setigual(false)
         setresults('')
         setinput('0')
         break
 
       case '/':
+
+      setigual(false)
+        
+        if (results[results.length - 1] === '-'
+          && results[results.length - 2] === '-'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '+'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '*'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '/') { setinput('/'); setresults(results.slice(0, results.length - 2).concat('/')); break }
         if (results[results.length - 1] === '/' || results[results.length - 1] === '.' || results[results.length - 1] === '+' || results[results.length - 1] === '*' || results[results.length - 1] === '-') { setresults(results.slice(0, results.length - 1).concat('/')); setinput('/'); break }
+
         if (input === '0' && results === '') break; else {
           setinput('/'); setresults(results.concat(target.name))
         }
         break
 
       case 'X':
+
+      setigual(false)
+      
+        if (results[results.length - 1] === '-'
+          && results[results.length - 2] === '-'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '+'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '*'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '/') { setinput('X'); setresults(results.slice(0, results.length - 2).concat('*')); break }
         if (results[results.length - 1] === '/' || results[results.length - 1] === '.' || results[results.length - 1] === '+' || results[results.length - 1] === '*' || results[results.length - 1] === '-') { setresults(results.slice(0, results.length - 1).concat('*')); setinput('X'); break }
+
         if (input === '0' && results === '') break; else {
           setinput('X'); setresults(results.concat('*'))
         }
         break
 
       case '+':
+
+      setigual(false)
+        
+        if (results[results.length - 1] === '-'
+          && results[results.length - 2] === '-'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '+'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '*'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '/') { setinput('+'); setresults(results.slice(0, results.length - 2).concat('+')); break }
         if (results[results.length - 1] === '/' || results[results.length - 1] === '.' || results[results.length - 1] === '+' || results[results.length - 1] === '*' || results[results.length - 1] === '-') { setresults(results.slice(0, results.length - 1).concat('+')); setinput('+'); break }
+
         if (input === '0' && results === '') break; else {
           setinput('+'); setresults(results.concat(target.name))
         }
         break
 
       case '-':
-        if()
+
+      setigual(false)
+       
+        if (results === '-') break
+        if (results[results.length - 1] === '-'
+          && results[results.length - 2] === '-'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '+'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '*'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '/') break
+
+        setinput('-')
+        setresults(results.concat(target.name))
+        break
+
+      case '=':
+
+      setigual(true)
+
+        if (results[results.length - 1] === '-'
+          && results[results.length - 2] === '-'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '+'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '*'
+          || results[results.length - 1] === '-'
+          && results[results.length - 2] === '/') {
+
+          setresults(eval(results.slice(0, results.length - 2)));
+          break
+        }
+
+        if (results[results.length - 1] === '/' || results[results.length - 1] === '.' || results[results.length - 1] === '+' || results[results.length - 1] === '*' || results[results.length - 1] === '-') {
+
+          setresults(eval(results.slice(0, results.length - 1)));
+          break
+        }
+
+        setresults(`${eval(results)}`);
+
     }
 
   }
@@ -83,8 +173,8 @@ function App() {
 
       <div className='calculator'>
 
-        <div id='display'>{results}</div>
-        <div id='input'>{input}</div>
+        <div id='fs'>{results}</div>
+        <div id='display'>{igual ? results : input}</div>
 
         <div className='keypad'>
           <button id="clear" onClick={handleClick} name='Clear'>Clear</button>

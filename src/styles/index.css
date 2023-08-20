@@ -2,9 +2,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #c8cde7;
 }
 
-#input {
+#display {
   border: none;
   outline: none;
   background-color: #101116;
@@ -36,7 +37,7 @@ body {
   border-radius: 5px;
 }
 
-#display {
+#fs {
   text-align: right;
   color: rgb(206, 142, 24);
   height: auto;
